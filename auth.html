@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D'REAL EXCHANGE - Login / Register</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Basic Reset */
+        body, h1, h2, p, div, form, input, button, label {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+            box-sizing: border-box;
+        }
+        body {
+            line-height: 1.6;
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f4f4; /* Light background */
+            color: #333;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Full viewport height */
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+            justify-content: center; /* Center content vertically */
+            align-items: center; /* Center content horizontally */
+        }
+        .container {
+            max-width: 450px; /* Narrower container for auth forms */
+            width: 100%; /* Ensure it takes full width on small screens */
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        /* Header */
+        h1 {
+            text-align: center;
+            color: #1a1a1a; /* Dark black from logo */
+            margin-bottom: 20px;
+            font-size: 2em;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #8A2BE2; /* Purple accent line */
+        }
+
+        /* Tab Navigation for Login/Register */
+        .tab-nav {
+            display: flex;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #ddd;
+        }
+        .tab-nav button {
+            flex-grow: 1;
+            padding: 15px 0;
+            border: none;
+            background-color: transparent;
+            color: #555;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease, border-bottom 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+        .tab-nav button.active {
+            color: #8A2BE2; /* Purple for active tab */
+            border-bottom: 3px solid #8A2BE2;
+        }
+        .tab-nav button:hover:not(.active) {
+            color: #1a1a1a;
+        }
+
+        /* Form Styling */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+            color: #333;
+            transition: border-color 0.3s ease;
+        }
+        .form-group input[type="text"]:focus,
+        .form-group input[type="email"]:focus,
+        .form-group input[type="password"]:focus {
+            outline: none;
+            border-color: #8A2BE2; /* Purple focus highlight */
+        }
+
+        .submit-button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #FF6347; /* Red submit button */
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .submit-button:hover {
+            background-color: #FF4500; /* Darker red on hover */
+            transform: translateY(-2px);
+        }
+
+        /* Forgot links */
+        .forgot-links {
+            text-align: right;
+            margin-top: -10px; /* Pull it up closer to the password field */
+            margin-bottom: 20px;
+        }
+        .forgot-links a {
+            color: #8A2BE2; /* Purple for links */
+            text-decoration: none;
+            font-size: 0.9em;
+            transition: text-decoration 0.3s ease;
+        }
+        .forgot-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Navigation Links at bottom (optional for auth page, but good for consistency) */
+        .app-navigation {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        .app-navigation a {
+            display: inline-block;
+            margin: 0 15px;
+            text-decoration: none;
+            color: #1a1a1a;
+            font-weight: bold;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .app-navigation a:hover {
+            background-color: #8A2BE2; /* Purple background on hover */
+            color: white;
+        }
+
+        /* Hide inactive forms */
+        .auth-form, .recovery-form {
+            display: none;
+        }
+        .auth-form.active, .recovery-form.active {
+            display: block;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            .container {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 1.8em;
+            }
+            .tab-nav button {
+                font-size: 1em;
+                padding: 12px 0;
+            }
+            .app-navigation a {
+                display: block;
+                margin: 10px auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to D'REAL EXCHANGE</h1>
+
+        <div class="tab-nav">
+            <button class="tab-button active" data-tab="login">Login</button>
+            <button class="tab-button" data-tab="register">Register</button>
+        </div>
+
+        <div id="loginForm" class="auth-form active">
+            <form>
+                <div class="form-group">
+                    <label for="loginIdentifier">Username/Email/Phone:</label>
+                    <input type="text" id="loginIdentifier" name="identifier" placeholder="Enter your username, email, or phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password:</label>
+                    <input type="password" id="loginPassword" name="password" placeholder="********" required>
+                </div>
+                <div class="forgot-links">
+                    <a href="#" id="forgotPasswordLink">Forgot Password?</a> |
+                    <a href="#" id="forgotIdentifierLink">Forgot Username/Email?</a>
+                </div>
+                <button type="submit" class="submit-button">Login</button>
+            </form>
+        </div>
+
+        <div id="registerForm" class="auth-form">
+            <form>
+                <div class="form-group">
+                    <label for="registerUsername">Username:</label>
+                    <input type="text" id="registerUsername" name="username" placeholder="Choose a username" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Email:</label>
+                    <input type="email" id="registerEmail" name="email" placeholder="your@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPhone">Phone Number (Optional):</label>
+                    <input type="text" id="registerPhone" name="phone" placeholder="e.g., +1234567890">
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Password:</label>
+                    <input type="password" id="registerPassword" name="password" placeholder="Create a password" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password:</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" required>
+                </div>
+                <button type="submit" class="submit-button">Register</button>
+            </form>
+        </div>
+
+        <div id="forgotPasswordForm" class="recovery-form">
+            <h2>Forgot Password</h2>
+            <p style="text-align: center; margin-bottom: 20px; font-size: 0.95em; color: #666;">Enter your registered email, username, or phone number to reset your password.</p>
+            <form>
+                <div class="form-group">
+                    <label for="recoveryPasswordIdentifier">Email/Username/Phone:</label>
+                    <input type="text" id="recoveryPasswordIdentifier" name="identifier" placeholder="your@email.com, username, or phone" required>
+                </div>
+                <button type="submit" class="submit-button">Reset Password</button>
+                <p style="text-align: center; margin-top: 20px;"><a href="#" id="backToLoginFromPassword">Back to Login</a></p>
+            </form>
+        </div>
+
+        <div id="forgotIdentifierForm" class="recovery-form">
+            <h2>Forgot Username/Email</h2>
+            <p style="text-align: center; margin-bottom: 20px; font-size: 0.95em; color: #666;">Enter your registered phone number or email to recover your username/email.</p>
+            <form>
+                <div class="form-group">
+                    <label for="recoveryIdentifier">Phone Number or Email:</label>
+                    <input type="text" id="recoveryIdentifier" name="identifier" placeholder="your@email.com or phone number" required>
+                </div>
+                <button type="submit" class="submit-button">Recover Account</button>
+                <p style="text-align: center; margin-top: 20px;"><a href="#" id="backToLoginFromIdentifier">Back to Login</a></p>
+            </form>
+        </div>
+
+
+        <div class="app-navigation">
+            <p>
+                <a href="/offer-listings">View Offers</a>
+                <a href="/profile">Profile</a>
+                <a href="/chat">Chat</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const authForms = document.querySelectorAll('.auth-form');
+            const recoveryForms = document.querySelectorAll('.recovery-form');
+            const loginForm = document.getElementById('loginForm');
+            const registerForm = document.getElementById('registerForm');
+            const forgotPasswordForm = document.getElementById('forgotPasswordForm');
+            const forgotIdentifierForm = document.getElementById('forgotIdentifierForm');
+
+
+            // Function to show a specific form and hide others
+            function showForm(formId) {
+                authForms.forEach(form => form.classList.remove('active'));
+                recoveryForms.forEach(form => form.classList.remove('active'));
+                document.getElementById(formId).classList.add('active');
+            }
+
+            // Tab switching logic
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    showForm(this.dataset.tab + 'Form');
+                });
+            });
+
+            // Forgot Password link
+            document.getElementById('forgotPasswordLink').addEventListener('click', function(e) {
+                e.preventDefault();
+                tabButtons.forEach(btn => btn.classList.remove('active')); // Deactivate tabs
+                showForm('forgotPasswordForm');
+            });
+
+            // Forgot Identifier link
+            document.getElementById('forgotIdentifierLink').addEventListener('click', function(e) {
+                e.preventDefault();
+                tabButtons.forEach(btn => btn.classList.remove('active')); // Deactivate tabs
+                showForm('forgotIdentifierForm');
+            });
+
+            // Back to Login links
+            document.getElementById('backToLoginFromPassword').addEventListener('click', function(e) {
+                e.preventDefault();
+                tabButtons[0].classList.add('active'); // Activate login tab
+                showForm('loginForm');
+            });
+
+            document.getElementById('backToLoginFromIdentifier').addEventListener('click', function(e) {
+                e.preventDefault();
+                tabButtons[0].classList.add('active'); // Activate login tab
+                showForm('loginForm');
+            });
+
+
+            // Handle Login form submission
+            loginForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                const identifier = document.getElementById('loginIdentifier').value;
+                const password = document.getElementById('loginPassword').value;
+
+                try {
+                    const response = await fetch('http://localhost:5000/api/auth/login', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ identifier: identifier, password: password })
+                    });
+
+                    const result = await response.json();
+                    if (response.ok) {
+                        alert(`Login Successful: ${result.message} (UID: ${result.uid})`);
+                        // In a real app, you'd save the token and redirect to a dashboard
+                    } else {
+                        alert(`Login Failed: ${result.error}`);
+                    }
+                } catch (error) {
+                    console.error('Login error:', error);
+                    alert('An error occurred during login. Please try again.');
+                }
+            });
+
+            // Handle Register form submission
+            registerForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                const username = document.getElementById('registerUsername').value;
+                const email = document.getElementById('registerEmail').value;
+                const phone = document.getElementById('registerPhone').value;
+                const password = document.getElementById('registerPassword').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+
+                if (password !== confirmPassword) {
+                    alert('Passwords do not match!');
+                    return;
+                }
+
+                try {
+                    const response = await fetch('http://localhost:5000/api/auth/register', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ username: username, email: email, phone: phone, password: password })
+                    });
+
+                    const result = await response.json();
+                    if (response.ok) {
+                        alert(`Registration Successful: ${result.message} (UID: ${result.uid})`);
+                        // Optionally switch to login tab or redirect
+                        tabButtons[0].click(); // Go back to login tab
+                    } else {
+                        alert(`Registration Failed: ${result.error}`);
+                    }
+                } catch (error) {
+                    console.error('Registration error:', error);
+                    alert('An error occurred during registration. Please try again.');
+                    }
+            });
+
+            // Handle Forgot Password form submission
+            forgotPasswordForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                const identifier = document.getElementById('recoveryPasswordIdentifier').value;
+                alert(`Password reset requested for: ${identifier}\n\n(This would send a request to the backend)`);
+                // In a real app, send request to backend's forgot-password endpoint
+            });
+
+            // Handle Forgot Identifier form submission
+            forgotIdentifierForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                const identifier = document.getElementById('recoveryIdentifier').value;
+                alert(`Account recovery requested for: ${identifier}\n\n(This would send a request to the backend)`);
+                // In a real app, send request to backend's recover-identifier endpoint
+            });
+        });
+    </script>
+</body>
+</html>

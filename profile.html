@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D'REAL EXCHANGE - User Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Basic Reset */
+        body, h1, h2, h3, p, div, input, button, label, select {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+            box-sizing: border-box;
+        }
+        body {
+            line-height: 1.6;
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f4f4; /* Light background */
+            color: #333;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Full viewport height */
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+        }
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            flex-grow: 1; /* Allows content to expand */
+        }
+
+        /* Header */
+        h1 {
+            text-align: center;
+            color: #1a1a1a; /* Dark black from logo */
+            margin-bottom: 30px;
+            font-size: 2.2em;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #8A2BE2; /* Purple accent line */
+        }
+
+        /* Profile Sections */
+        .profile-section {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+        }
+        .profile-section h2 {
+            color: #8A2BE2; /* Purple for section headings */
+            font-size: 1.6em;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+        .profile-info p {
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        .profile-info p strong {
+            color: #1a1a1a;
+        }
+
+        /* Wallet Section */
+        .wallet-balances {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Responsive grid */
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .wallet-item {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .wallet-item strong {
+            display: block;
+            font-size: 1.3em;
+            color: #1a1a1a;
+            margin-bottom: 5px;
+        }
+        .wallet-item span {
+            font-size: 1.1em;
+            color: #555;
+        }
+        .wallet-actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .wallet-actions button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .generate-wallet-button {
+            background-color: #8A2BE2; /* Purple */
+            color: white;
+        }
+        .generate-wallet-button:hover {
+            background-color: #6A0DAD;
+            transform: translateY(-2px);
+        }
+        .add-funds-button {
+            background-color: #25D366; /* WhatsApp Green */
+            color: white;
+        }
+        .add-funds-button:hover {
+            background-color: #1DA851;
+            transform: translateY(-2px);
+        }
+        .withdraw-funds-button {
+            background-color: #FF6347; /* Red */
+            color: white;
+        }
+        .withdraw-funds-button:hover {
+            background-color: #FF4500;
+            transform: translateY(-2px);
+        }
+
+
+        /* Notification Preferences (for Vendors) */
+        .notification-preferences .form-group {
+            margin-bottom: 15px;
+        }
+        .notification-preferences label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+            font-size: 1em;
+            color: #555;
+            cursor: pointer;
+        }
+        .notification-preferences input[type="checkbox"] {
+            margin-right: 10px;
+            transform: scale(1.1);
+            accent-color: #8A2BE2; /* Purple accent for checkbox */
+        }
+        .notification-preferences button {
+            padding: 10px 20px;
+            background-color: #FF6347; /* Red save button */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            margin-top: 15px;
+        }
+        .notification-preferences button:hover {
+            background-color: #FF4500;
+            transform: translateY(-2px);
+        }
+
+        /* Trade History (placeholder) */
+        .trade-history ul {
+            list-style: disc;
+            padding-left: 20px;
+            color: #555;
+        }
+        .trade-history li {
+            margin-bottom: 8px;
+        }
+        .trade-history li strong {
+            color: #1a1a1a;
+        }
+
+        /* Navigation Links at bottom */
+        .app-navigation {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        .app-navigation a {
+            display: inline-block;
+            margin: 0 15px;
+            text-decoration: none;
+            color: #1a1a1a;
+            font-weight: bold;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .app-navigation a:hover {
+            background-color: #8A2BE2; /* Purple background on hover */
+            color: white;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            .container {
+                padding: 15px;
+            }
+            h1 {
+                font-size: 1.8em;
+            }
+            .profile-section {
+                padding: 15px;
+            }
+            .profile-section h2 {
+                font-size: 1.4em;
+            }
+            .wallet-balances {
+                grid-template-columns: 1fr; /* Stack wallets vertically on small screens */
+            }
+            .app-navigation a {
+                display: block;
+                margin: 10px auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>User Profile</h1>
+
+        <div class="profile-section user-info">
+            <h2>Account Information</h2>
+            <div class="profile-info">
+                <p><strong>Username:</strong> CryptoTraderX</p>
+                <p><strong>Email:</strong> cryptotraderx@example.com</p>
+                <p><strong>Account Status:</strong> Verified</p>
+                <p><strong>Member Since:</strong> January 15, 2023</p>
+            </div>
+        </div>
+
+        <div class="profile-section wallet-management">
+            <h2>My Wallets</h2>
+            <div class="wallet-balances" id="walletBalances">
+                <!-- Wallet items will be dynamically loaded here -->
+                <p style="text-align: center;">Loading wallets...</p>
+            </div>
+            <div style="text-align: center;">
+                <button class="generate-wallet-button" id="generateWalletBtn">Generate New Wallet</button>
+            </div>
+        </div>
+
+        <div class="profile-section notification-preferences">
+            <h2>Notification Preferences (Vendors Only)</h2>
+            <p>Select how you wish to receive trade notifications:</p>
+            <form id="notificationPrefsForm">
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" name="notifyPush" checked> Push Notifications (via App)
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" name="notifyTelegram"> Telegram Messages
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" name="notifyWhatsApp"> WhatsApp Messages
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" name="notifyEmail" checked> Email Notifications
+                    </label>
+                </div>
+                <button type="submit">Save Preferences</button>
+            </form>
+        </div>
+
+        <div class="profile-section trade-history">
+            <h2>Recent Trade History</h2>
+            <ul>
+                <li><strong>Buy 0.1 BTC</strong> from VendorAlpha on 2025-05-30 - Status: Completed</li>
+                <li><strong>Sell 0.5 ETH</strong> to VendorBeta on 2025-05-28 - Status: Completed</li>
+                <li><strong>Buy 100 USDT</strong> from VendorGamma on 2025-05-25 - Status: Pending</li>
+                <!-- More trade history would be dynamically loaded -->
+            </ul>
+        </div>
+
+        <div class="app-navigation">
+            <p>
+                <a href="/offer-listings">View All Offers</a>
+                <a href="/create-offer">Create Offer</a>
+                <a href="/chat">Chat</a>
+                <a href="/login">Login/Register</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Function to fetch and render wallet balances
+        async function fetchAndRenderWalletBalances() {
+            const walletBalancesDiv = document.getElementById('walletBalances');
+            walletBalancesDiv.innerHTML = '<p style="text-align: center;">Loading wallet balances...</p>'; // Loading state
+
+            try {
+                const response = await fetch('http://localhost:5000/api/wallet/balances');
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`HTTP error! status: ${response.status} - ${errorText}`);
+                }
+                const balances = await response.json();
+                
+                walletBalancesDiv.innerHTML = ''; // Clear loading state
+                if (Object.keys(balances).length === 0) {
+                    walletBalancesDiv.innerHTML = '<p style="text-align: center;">No wallet balances found. Generate a new wallet!</p>';
+                } else {
+                    for (const crypto in balances) {
+                        const walletItemDiv = document.createElement('div');
+                        walletItemDiv.className = 'wallet-item';
+                        walletItemDiv.innerHTML = `
+                            <strong>${crypto}</strong>
+                            <span>Balance: ${balances[crypto].toFixed(8)} ${crypto}</span>
+                            <div class="wallet-actions">
+                                <button class="add-funds-button" data-crypto="${crypto}">Add Funds</button>
+                                <button class="withdraw-funds-button" data-crypto="${crypto}">Withdraw</button>
+                            </div>
+                        `;
+                        walletBalancesDiv.appendChild(walletItemDiv);
+                    }
+                }
+            } catch (error) {
+                console.error('Failed to fetch wallet balances:', error);
+                const walletBalancesDiv = document.getElementById('walletBalances');
+                walletBalancesDiv.innerHTML = `
+                    <p style="color: red; text-align: center;">
+                        Error loading wallet balances: ${error.message}. <br>
+                        Please ensure your backend server is running.
+                    </p>
+                `;
+            }
+        }
+
+        // Event listener for Generate New Wallet button
+        document.getElementById('generateWalletBtn').addEventListener('click', async function() {
+            const cryptoSymbol = prompt("Enter cryptocurrency symbol to generate wallet for (e.g., BTC, ETH, USDT):");
+            if (!cryptoSymbol) return;
+
+            try {
+                const response = await fetch('http://localhost:5000/api/wallet/generate-new', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ crypto_symbol: cryptoSymbol.toUpperCase() })
+                });
+
+                const result = await response.json();
+                if (response.ok) {
+                    alert(`Wallet Generation Simulated: ${result.message}\nAddress: ${result.address}`);
+                    fetchAndRenderWalletBalances(); // Refresh balances after generation
+                } else {
+                    alert(`Failed to generate wallet: ${result.error}`);
+                }
+            } catch (error) {
+                console.error('Error generating wallet:', error);
+                alert('An error occurred during wallet generation. Please try again.');
+            }
+        });
+
+        // Event listener for Add Funds buttons (delegated to parent)
+        document.getElementById('walletBalances').addEventListener('click', async function(e) {
+            if (e.target.classList.contains('add-funds-button')) {
+                const crypto = e.target.dataset.crypto;
+                const amount = prompt(`Enter amount of ${crypto} to add (simulated):`);
+                if (!amount || isNaN(amount) || parseFloat(amount) <= 0) {
+                    alert('Invalid amount.');
+                    return;
+                }
+
+                try {
+                    const response = await fetch('http://localhost:5000/api/funds/add', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ crypto_symbol: crypto, amount: parseFloat(amount) })
+                    });
+
+                    const result = await response.json();
+                    if (response.ok) {
+                        alert(`Add Funds Simulated: ${result.message}`);
+                        fetchAndRenderWalletBalances(); // Refresh balances after adding funds
+                    } else {
+                        alert(`Failed to add funds: ${result.error}`);
+                    }
+                } catch (error) {
+                    console.error('Error adding funds:', error);
+                    alert('An error occurred while adding funds. Please try again.');
+                }
+            }
+        });
+
+        // Event listener for Withdraw buttons (delegated to parent)
+        document.getElementById('walletBalances').addEventListener('click', async function(e) {
+            if (e.target.classList.contains('withdraw-funds-button')) {
+                const crypto = e.target.dataset.crypto;
+                const amount = prompt(`Enter amount of ${crypto} to withdraw (simulated):`);
+                if (!amount || isNaN(amount) || parseFloat(amount) <= 0) {
+                    alert('Invalid amount.');
+                    return;
+                }
+                const destinationAddress = prompt(`Enter destination ${crypto} address (simulated):`);
+                if (!destinationAddress) {
+                    alert('Destination address is required.');
+                    return;
+                }
+
+                try {
+                    const response = await fetch('http://localhost:5000/api/funds/withdraw', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ crypto_symbol: crypto, amount: parseFloat(amount), destination_address: destinationAddress })
+                    });
+
+                    const result = await response.json();
+                    if (response.ok) {
+                        alert(`Withdrawal Simulated: ${result.message}`);
+                        fetchAndRenderWalletBalances(); // Refresh balances after withdrawal
+                    } else {
+                        alert(`Failed to withdraw funds: ${result.error}`);
+                    }
+                } catch (error) {
+                    console.error('Error withdrawing funds:', error);
+                    alert('An error occurred while withdrawing funds. Please try again.');
+                }
+            }
+        });
+
+
+        // Initial fetch and render of wallet balances when page loads
+        document.addEventListener('DOMContentLoaded', fetchAndRenderWalletBalances);
+
+        // Notification preferences form submission (existing logic)
+        document.getElementById('notificationPrefsForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const prefs = {
+                push: document.querySelector('input[name="notifyPush"]').checked,
+                telegram: document.querySelector('input[name="notifyTelegram"]').checked,
+                whatsapp: document.querySelector('input[name="notifyWhatsApp"]').checked,
+                email: document.querySelector('input[name="notifyEmail"]').checked
+            };
+            alert('Notification Preferences Saved:\n' + JSON.stringify(prefs, null, 2) + '\n\nThis would typically be sent to the backend.');
+        });
+    </script>
+</html>

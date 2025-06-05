@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D'REAL EXCHANGE - Chat</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Basic Reset */
+        body, h1, p, div, input, button {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+            box-sizing: border-box;
+        }
+        body {
+            line-height: 1.6;
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f4f4; /* Light background */
+            color: #333;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Full viewport height */
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+        }
+        .container {
+            max-width: 700px; /* Wider container for chat */
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            flex-grow: 1; /* Allows chat content to expand */
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        h1 {
+            text-align: center;
+            color: #1a1a1a; /* Dark black from logo */
+            margin-bottom: 20px;
+            font-size: 2em;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #8A2BE2; /* Purple accent line */
+        }
+
+        /* Call Button Area */
+        .call-button-area {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .call-button {
+            padding: 10px 15px; /* Adjusted padding for icon */
+            background-color: #25D366; /* WhatsApp Green */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            display: inline-flex; /* Use flex for icon centering */
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em; /* Size for icon */
+        }
+        .call-button:hover {
+            background-color: #1DA851; /* Slightly darker green on hover */
+            transform: translateY(-2px);
+        }
+        .call-button svg {
+            fill: white;
+            width: 24px; /* Icon size */
+            height: 24px;
+        }
+
+        /* Chat Area */
+        .chat-area {
+            flex-grow: 1; /* Allows messages to take up available space */
+            background-color: #e9ecef; /* Light gray chat background */
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            overflow-y: auto; /* Scrollable chat history */
+            display: flex;
+            flex-direction: column;
+            gap: 10px; /* Space between messages */
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 10px 15px;
+            border-radius: 15px;
+            line-height: 1.4;
+            word-wrap: break-word; /* Ensures long words break */
+        }
+
+        .message.user {
+            background-color: #8A2BE2; /* Purple for user messages */
+            color: white;
+            align-self: flex-end; /* Align to the right */
+            border-bottom-right-radius: 2px; /* Pointy corner */
+        }
+
+        .message.vendor {
+            background-color: #f0f0f0; /* Light gray for vendor messages */
+            color: #333;
+            align-self: flex-start; /* Align to the left */
+            border-bottom-left-radius: 2px; /* Pointy corner */
+        }
+
+        .message-info {
+            font-size: 0.8em;
+            margin-top: 5px;
+            opacity: 0.7;
+        }
+        .message.user .message-info {
+            text-align: right;
+            color: rgba(255,255,255,0.8);
+        }
+        .message.vendor .message-info {
+            text-align: left;
+            color: #666;
+        }
+
+
+        /* Message Input */
+        .message-input-area {
+            display: flex;
+            gap: 10px;
+        }
+        .message-input-area input[type="text"] {
+            flex-grow: 1;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 25px; /* Pill-shaped input */
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+        }
+        .message-input-area input[type="text"]:focus {
+            outline: none;
+            border-color: #8A2BE2;
+        }
+        .message-input-area button {
+            padding: 12px 20px;
+            background-color: #1877F2; /* Facebook Blue */
+            color: white;
+            border: none;
+            border-radius: 25px; /* Pill-shaped button */
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box_shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .message-input-area button:hover {
+            background-color: #166FE5; /* Slightly darker blue on hover */
+            transform: translateY(-2px);
+        }
+
+        /* Navigation Links at bottom */
+        .app-navigation {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        .app-navigation a {
+            display: inline-block;
+            margin: 0 15px;
+            text-decoration: none;
+            color: #1a1a1a;
+            font-weight: bold;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .app-navigation a:hover {
+            background-color: #8A2BE2; /* Purple background on hover */
+            color: white;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            .container {
+                padding: 15px;
+            }
+            h1 {
+                font-size: 1.8em;
+            }
+            .message-input-area {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .message-input-area input[type="text"] {
+                border-radius: 8px; /* Less rounded on small screens */
+            }
+            .message-input-area button {
+                border-radius: 8px;
+            }
+            .app-navigation a {
+                display: block;
+                margin: 10px auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Trade Chat with VendorAlpha</h1> <div class="call-button-area">
+            <button id="callVendorBtn" class="call-button">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57-.35-.11-.74-.03-1.02.24l-2.2 2.2c-2.83-1.44-5.15-3.75-6.59-6.59l2.2-2.2c.27-.28.35-.67.24-1.02C8.75 4.45 8.55 3.25 8.55 2c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.55c0-.55-.45-1-1-1z"/>
+                </svg>
+            </button>
+        </div>
+
+        <div class="chat-area" id="chatArea">
+            <p style="text-align: center;">Loading chat history...</p>
+        </div>
+
+        <div class="message-input-area">
+            <input type="text" id="messageInput" placeholder="Type your message...">
+            <button id="sendMessageBtn">Send</button>
+        </div>
+
+        <div class="app-navigation">
+            <p>
+                <a href="app-offers.html">View All Offers</a>
+                <a href="create-offer.html">Create Offer</a>
+                <a href="profile.html">Your Profile</a>
+                <a href="auth.html">Login/Register</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // In a real app, this trade ID would come from clicking on an offer or a trade history item.
+        // For demonstration, we'll use a hardcoded mock ID.
+        const MOCK_TRADE_ID = "mock_trade_id_abc123"; 
+        const MOCK_CURRENT_USER_ID = "mock_user_id_for_testing"; // This should match get_current_user_uid() in app.py
+
+        // Function to fetch and render chat messages
+        async function fetchAndRenderMessages() {
+            const chatArea = document.getElementById('chatArea');
+            chatArea.innerHTML = '<p style="text-align: center;">Loading chat history...</p>';
+
+            try {
+                const response = await fetch(`http://localhost:5000/api/chat/messages/${MOCK_TRADE_ID}`);
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`HTTP error! status: ${response.status} - ${errorText}`);
+                }
+                const messages = await response.json();
+
+                chatArea.innerHTML = ''; // Clear loading state
+                if (!messages || messages.length === 0) {
+                    chatArea.innerHTML = '<p style="text-align: center;">No messages yet. Start the conversation!</p>';
+                } else {
+                    messages.forEach(msg => {
+                        const messageDiv = document.createElement('div');
+                        // Determine if it's the current user's message or another participant's
+                        const isCurrentUser = (msg.sender_id === MOCK_CURRENT_USER_ID) || (msg.sender === 'UserX'); // "UserX" for older mock messages
+                        messageDiv.classList.add('message', isCurrentUser ? 'user' : 'vendor'); 
+                        
+                        const senderName = isCurrentUser ? 'You' : msg.sender;
+                        const timestamp = msg.timestamp ? new Date(msg.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : '';
+
+                        // FIX IS HERE: Use msg.text instead of msg.message_text based on app.py mock data
+                        messageDiv.innerHTML = `
+                            <p>${msg.text}</p> 
+                            <div class="message-info">${senderName} • ${timestamp}</div>
+                        `;
+                        chatArea.appendChild(messageDiv);
+                    });
+                    chatArea.scrollTop = chatArea.scrollHeight; // Scroll to bottom
+                }
+            } catch (error) {
+                console.error('Failed to fetch chat messages:', error);
+                chatArea.innerHTML = `
+                    <p style="color: red; text-align: center;">
+                        Error loading chat: ${error.message}. <br>
+                        Please ensure your backend server is running.
+                    </p>
+                `;
+            }
+        }
+
+        // Event listener for sending messages
+        document.getElementById('sendMessageBtn').addEventListener('click', async function() {
+            const messageInput = document.getElementById('messageInput');
+            const messageText = messageInput.value.trim();
+
+            if (!messageText) return; // Don't send empty messages
+
+            try {
+                const response = await fetch('http://localhost:5000/api/chat/send-message', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        trade_id: MOCK_TRADE_ID, 
+                        message_text: messageText, 
+                        sender_id: MOCK_CURRENT_USER_ID 
+                    }) // Send sender_id
+                });
+
+                const result = await response.json();
+                if (response.ok) {
+                    messageInput.value = ''; // Clear input
+                    fetchAndRenderMessages(); // Refresh messages to show the new one
+                } else {
+                    alert(`Failed to send message: ${result.error}`);
+                    console.error('Error sending message:', result.error);
+                }
+            } catch (error) {
+                console.error('Error sending message:', error);
+                alert('An error occurred while sending message. Please try again.');
+            }
+        });
+
+        // Allow sending message with Enter key
+        document.getElementById('messageInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('sendMessageBtn').click();
+            }
+        });
+
+        // "Call Vendor" button functionality (placeholder)
+        document.getElementById('callVendorBtn').addEventListener('click', function() {
+            const vendorName = document.querySelector('h1').textContent.replace('Trade Chat with ', '');
+            alert(`Attempting to notify ${vendorName} (simulated app notification). They will be alerted if offline.`);
+        });
+
+        // Initial fetch and render of chat messages when page loads
+        document.addEventListener('DOMContentLoaded', fetchAndRenderMessages);
+    </script>
+</html>

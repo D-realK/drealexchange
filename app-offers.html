@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D'REAL EXCHANGE - Trade Offers</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Basic Reset */
+        body, h1, h2, h3, p, ul, li {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+        }
+        body {
+            line-height: 1.6;
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f4f4; /* Light background */
+            color: #333;
+            padding: 20px;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        h1 {
+            text-align: center;
+            color: #1a1a1a; /* Dark black from logo */
+            margin-bottom: 30px;
+            font-size: 2.2em;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #8A2BE2; /* Purple accent line */
+        }
+
+        /* Offer List */
+        .offer-list {
+            margin-top: 20px;
+        }
+        .offer {
+            background-color: #fff;
+            border: 1px solid #eee;
+            padding: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease-in-out;
+        }
+        .offer:hover {
+            transform: translateY(-5px);
+        }
+
+        .offer-details {
+            flex-grow: 1;
+            margin-right: 20px; /* Space between details and actions */
+        }
+        .offer-details strong {
+            font-size: 1.4em;
+            color: #8A2BE2; /* Purple for crypto name */
+            display: block;
+            margin-bottom: 5px;
+        }
+        .offer-details p {
+            margin-bottom: 5px;
+            color: #555;
+        }
+        .offer-details .market-price {
+            font-size: 1em;
+            color: #1a1a1a;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        .offer-details .vendor-info {
+            font-size: 0.9em;
+            color: #777;
+        }
+
+        .offer-actions {
+            display: flex;
+            gap: 10px; /* Space between buttons */
+        }
+        .offer-actions button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px; /* Rounded buttons */
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .buy-button {
+            background-color: #8A2BE2; /* Purple for Buy */
+            color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .buy-button:hover {
+            background-color: #6A0DAD; /* Darker purple on hover */
+            transform: translateY(-2px);
+        }
+
+        .sell-button {
+            background-color: #FF6347; /* Red for Sell */
+            color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .sell-button:hover {
+            background-color: #FF4500; /* Darker red on hover */
+            transform: translateY(-2px);
+        }
+
+        /* Navigation Links at bottom */
+        .app-navigation {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        .app-navigation a {
+            display: inline-block;
+            margin: 0 15px;
+            text-decoration: none;
+            color: #1a1a1a;
+            font-weight: bold;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .app-navigation a:hover {
+            background-color: #8A2BE2; /* Purple background on hover */
+            color: white;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .offer {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .offer-details {
+                margin-right: 0;
+                margin-bottom: 15px;
+                width: 100%; /* Full width for details on small screens */
+            }
+            .offer-actions {
+                width: 100%;
+                justify-content: center; /* Center buttons on small screens */
+            }
+            .offer-actions button {
+                flex-grow: 1; /* Buttons take equal width */
+            }
+            .app-navigation a {
+                display: block;
+                margin: 10px auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>D'REAL EXCHANGE - Available Offers</h1>
+
+        <div class="offer-list" id="offerList">
+            <!-- Offers will be dynamically loaded here by JavaScript -->
+        </div>
+
+        <div class="app-navigation">
+            <p>
+                <a href="/create-offer">Create Offer</a>
+                <a href="/profile">Your Profile</a>
+                <a href="/chat">Chat</a>
+                <a href="/login">Login/Register</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Placeholder for real-time market data (simulated API call)
+        async function fetchMarketPrices() {
+            // This remains a client-side mock for now, as real-time market data
+            // is usually fetched directly by the client from public APIs.
+            const mockPrices = {
+                bitcoin: (30000 + Math.random() * 500 - 250).toFixed(2), // Simulate slight fluctuation
+                ethereum: (2000 + Math.random() * 50 - 25).toFixed(2),
+                tether: (1.00 + Math.random() * 0.001 - 0.0005).toFixed(4),
+                ripple: (0.50 + Math.random() * 0.01 - 0.005).toFixed(4),
+                litecoin: (100 + Math.random() * 2 - 1).toFixed(2)
+            };
+            return mockPrices;
+        }
+
+        // This function now fetches data from your Flask backend
+        async function fetchOffers() {
+            try {
+                const response = await fetch('http://localhost:5000/api/offers'); // Point to your Flask server
+                if (!response.ok) {
+                    // If the response is not OK (e.g., 404, 500), throw an error with more details
+                    const errorText = await response.text(); // Try to get more info from the response
+                    throw new Error(`HTTP error! status: ${response.status} - ${errorText}`);
+                }
+                const offers = await response.json();
+                return offers;
+            } catch (error) {
+                console.error('Failed to fetch offers from backend:', error);
+                const offerListDiv = document.getElementById('offerList');
+                offerListDiv.innerHTML = `
+                    <p style="color: red; text-align: center;">
+                        Error loading offers: ${error.message}. <br>
+                        Please ensure your backend server is running at http://localhost:5000.
+                    </p>
+                    <p style="text-align: center; margin-top: 10px;">
+                        Falling back to mock data...
+                    </p>
+                `;
+                // Fallback to mock data if backend is unreachable
+                return [
+                    { id: 'mock1', crypto: 'BTC/USD', type: 'Sell', price: 29500, quantity: 0.4, vendor: 'MockVendorX' },
+                    { id: 'mock2', crypto: 'ETH/USD', type: 'Buy', price: 2100, quantity: 1.8, vendor: 'MockVendorY' }
+                ];
+            }
+        }
+
+        // This function takes the offer data and creates the HTML for it
+        async function renderOffers() {
+            const offerListDiv = document.getElementById('offerList');
+            offerListDiv.innerHTML = '<p style="text-align: center;">Loading offers...</p>'; // Show loading state
+
+            const offers = await fetchOffers(); // Get the base offers
+            const marketPrices = await fetchMarketPrices(); // Get current market prices
+
+            if (!offers || offers.length === 0) {
+                offerListDiv.innerHTML = '<p style="text-align: center;">No offers available at the moment.</p>';
+                return;
+            }
+
+            offerListDiv.innerHTML = ''; // Clear loading state
+            offers.forEach(offer => {
+                const offerDiv = document.createElement('div');
+                offerDiv.className = 'offer';
+
+                const offerType = offer.type.charAt(0).toUpperCase() + offer.type.slice(1);
+                const buttonClass = offer.type === 'sell' ? 'buy-button' : 'sell-button';
+                const buttonText = offer.type === 'sell' ? 'Buy' : 'Sell';
+
+                // Determine the market price for the current crypto
+                let currentMarketPrice = 'N/A';
+                const cryptoSymbol = offer.crypto.split('/')[0].toLowerCase();
+                if (marketPrices[cryptoSymbol]) {
+                    currentMarketPrice = `$${marketPrices[cryptoSymbol]}`;
+                }
+
+                offerDiv.innerHTML = `
+                    <div class="offer-details">
+                        <strong>${offer.crypto}</strong> - ${offerType}
+                        <p>Offer Price: $${offer.price.toFixed(2)}</p>
+                        <p>Quantity: ${offer.quantity} ${offer.crypto.split('/')[0]}</p>
+                        <p class="market-price">Market Price: ${currentMarketPrice}</p>
+                        <p class="vendor-info">Vendor: ${offer.vendor}</p>
+                    </div>
+                    <div class="offer-actions">
+                        <button class="${buttonClass}">${buttonText}</button>
+                    </div>
+                `;
+                offerListDiv.appendChild(offerDiv);
+            });
+        }
+
+        // Main logic that runs when the page loads and for periodic refresh
+        document.addEventListener('DOMContentLoaded', () => {
+            renderOffers(); // Initial load
+            // Refresh offers every 30 seconds to simulate real-time data
+            setInterval(renderOffers, 30000);
+        });
+
+        // Event listener for dynamically created Buy/Sell buttons
+        document.getElementById('offerList').addEventListener('click', function(e) {
+            if (e.target.classList.contains('buy-button')) {
+                const offerDetails = e.target.closest('.offer').querySelector('.offer-details');
+                const crypto = offerDetails.querySelector('strong').textContent.split(' ')[0];
+                const vendor = offerDetails.querySelector('.vendor-info').textContent.replace('Vendor: ', '');
+                alert(`Initiating BUY for ${crypto} with ${vendor}. This would open a trade request.`);
+            } else if (e.target.classList.contains('sell-button')) {
+                const offerDetails = e.target.closest('.offer').querySelector('.offer-details');
+                const crypto = offerDetails.querySelector('strong').textContent.split(' ')[0];
+                const vendor = offerDetails.querySelector('.vendor-info').textContent.replace('Vendor: ', '');
+                alert(`Initiating SELL for ${crypto} with ${vendor}. This would open a trade request.`);
+            }
+        });
+    </script>
+</html>

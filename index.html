@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D'REAL EXCHANGE - Your P2P Crypto Trading Platform</title>
+    <style>
+        /* Basic Reset */
+        body, h1, h2, h3, p, ul, li {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+        }
+        body {
+            line-height: 1;
+            font-family: 'Inter', sans-serif; /* Using Inter font as per instructions */
+            background-color: #f4f4f4;
+            color: #333;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+        }
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: #fff;
+            padding: 30px 0;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+            border-radius: 0 0 15px 15px; /* Rounded bottom corners */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        header img {
+            max-width: 200px;
+            height: auto;
+            border-radius: 8px; /* Rounded corners for logo */
+        }
+
+        /* Navigation */
+        nav {
+            background-color: #1a1a1a; /* Darker black for navigation */
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            border-radius: 15px; /* Rounded corners for nav */
+            margin: 20px auto;
+            max-width: fit-content;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 20px; /* Increased margin for better touch target */
+            font-weight: bold;
+            padding: 8px 0; /* Increased padding for better touch target */
+            display: inline-block; /* Ensure padding applies */
+            transition: color 0.3s ease, text-decoration 0.3s ease;
+        }
+        nav a:hover {
+            color: #8A2BE2; /* Purple highlight on hover */
+            text-decoration: underline;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 20px; /* Added horizontal padding */
+            text-align: center;
+            background-color: #e9ecef; /* Light background */
+            border-radius: 15px; /* Rounded corners */
+            margin-top: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .hero h1 {
+            font-size: 2.8em; /* Slightly larger for impact */
+            margin-bottom: 20px;
+            color: #222;
+            line-height: 1.2;
+        }
+        .hero p {
+            font-size: 1.3em; /* Slightly larger */
+            color: #555;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            line-height: 1.5;
+        }
+
+        /* Features Section */
+        .features {
+            display: flex;
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+            justify-content: space-around;
+            padding: 60px 20px; /* Added horizontal padding */
+            background-color: #fff;
+            border-radius: 15px; /* Rounded corners */
+            margin-top: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .feature {
+            text-align: center;
+            width: 30%; /* Adjust width for responsiveness */
+            min-width: 280px; /* Minimum width for features on small screens */
+            padding: 30px; /* Increased padding */
+            margin: 15px; /* Added margin between features */
+            border: 1px solid #eee;
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+        .feature:hover {
+            transform: translateY(-5px); /* Subtle hover effect */
+        }
+        .feature h3 {
+            color: #8A2BE2; /* Purple for feature headings */
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+        .feature p {
+            color: #666;
+            line-height: 1.7;
+        }
+
+        /* About Us Section */
+        #about {
+            padding: 60px 20px; /* Added horizontal padding */
+            background-color: #f8f9fa; /* Light background */
+            text-align: center;
+            border-radius: 15px; /* Rounded corners */
+            margin-top: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        #about h2 {
+            color: #333;
+            margin-bottom: 25px;
+            font-size: 2em;
+        }
+        #about p {
+            max-width: 800px;
+            margin: 20px auto;
+            line-height: 1.8; /* Increased line-height for readability */
+            color: #555;
+            text-align: justify; /* Justify text for a professional look */
+        }
+
+        /* Call to Action - Download App Section */
+        .cta {
+            background: linear-gradient(45deg, #8A2BE2, #6A0DAD); /* Purple gradient */
+            color: white;
+            text-align: center;
+            padding: 50px 20px; /* Added horizontal padding */
+            border-radius: 15px; /* Rounded corners */
+            margin-top: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .cta h2 {
+            font-size: 2.2em;
+            margin-bottom: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+        .app-download-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px; /* Space between buttons */
+            margin-top: 30px;
+            margin-bottom: 30px; /* Space below links */
+        }
+        .cta a.download-button { /* Specific style for download buttons */
+            color: white;
+            text-decoration: none;
+            padding: 18px 35px; /* Larger padding for buttons */
+            border: 2px solid white;
+            border-radius: 8px; /* More rounded corners */
+            font-weight: bold;
+            font-size: 1.2em;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            display: inline-block; /* Allow margin and padding */
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2); /* Button shadow */
+            min-width: 200px; /* Ensure buttons are a decent size */
+        }
+        .cta a.download-button:hover {
+            background-color: rgba(255,255,255,0.2); /* Subtle background on hover */
+            transform: translateY(-3px); /* Lift effect on hover */
+        }
+        .qr-code-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px dashed rgba(255,255,255,0.5); /* Dotted line separator */
+        }
+        .qr-code-section p {
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            color: #fff;
+        }
+        .qr-code-placeholder {
+            background-color: #fff;
+            width: 120px; /* Slightly larger QR code box */
+            height: 120px;
+            margin: 15px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #333;
+            font-weight: bold;
+            border-radius: 10px; /* Rounded corners for QR code box */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1a1a1a; /* Darker black for footer */
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+            font-size: 0.95em;
+            border-radius: 15px 15px 0 0; /* Rounded top corners */
+            margin-top: 20px;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+        }
+        footer a {
+            color: #FF6347; /* Red for footer links */
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        footer a:hover {
+            color: #FF4500;
+            text-decoration: underline;
+        }
+
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000; /* Black background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease; /* Smooth fade out */
+        }
+        .loading-screen.hidden {
+            opacity: 0;
+            pointer-events: none; /* Make it unclickable when hidden */
+        }
+        .loading-screen img {
+            max-width: 250px; /* Slightly larger logo on loading screen */
+            height: auto;
+            animation: pulse 2s infinite;
+            border-radius: 15px; /* Rounded corners for loading logo */
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2em;
+            }
+            .hero p {
+                font-size: 1.1em;
+            }
+            .features {
+                flex-direction: column; /* Stack features vertically */
+                align-items: center;
+            }
+            .feature {
+                width: 90%; /* Full width on small screens */
+                margin-bottom: 20px;
+            }
+            nav a {
+                margin: 0 10px;
+                padding: 10px 0;
+            }
+            .cta a.download-button {
+                padding: 12px 25px;
+                font-size: 1em;
+                min-width: unset; /* Remove min-width on small screens */
+            }
+            .app-download-links {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header img {
+                max-width: 150px;
+            }
+            .hero h1 {
+                font-size: 1.8em;
+            }
+            .hero p {
+                font-size: 1em;
+            }
+            nav {
+                flex-direction: column;
+                padding: 10px;
+            }
+            nav a {
+                margin: 5px 0;
+                padding: 8px 0;
+            }
+            .feature {
+                padding: 20px;
+            }
+            #about p {
+                font-size: 0.9em;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <!-- Using a placeholder image for now, you will replace this with your actual logo -->
+        <img src="https://placehold.co/250x250/333333/FFFFFF?text=D'REAL+EXCHANGE+Logo" alt="D'REAL EXCHANGE Logo" />
+    </div>
+
+    <div class="container">
+        <header>
+            <!-- Using a placeholder image for now, you will replace this with your actual logo -->
+            <img src="https://placehold.co/200x200/333333/FFFFFF?text=D'REAL+EXCHANGE+Logo" alt="D'REAL EXCHANGE Logo">
+        </header>
+
+        <nav>
+            <a href="#about">About Us</a>
+            <a href="#features">Features</a>
+            <a href="#download">Download App</a>
+            <a href="/contact.html">Contact</a> <!-- Link to the new contact page -->
+        </nav>
+
+        <section class="hero">
+            <h1>Welcome to D'REAL EXCHANGE</h1>
+            <p>Your Secure and Reliable P2P Crypto Trading Platform</p>
+        </section>
+
+        <section class="features" id="features">
+            <div class="feature">
+                <h3>Secure Trading</h3>
+                <p>Trade with confidence on our secure platform, knowing your assets are protected.</p>
+            </div>
+            <div class="feature">
+                <h3>Fast Transactions</h3>
+                 <p>Experience quick and efficient P2P trading, designed for speed and convenience.</p>
+            </div>
+            <div class="feature">
+                <h3>Reliable Rates</h3>
+                <p>Get the best and most reliable rates for your trades, ensuring fair value every time.</p>
+            </div>
+        </section>
+
+        <section id="about">
+            <div class="container">
+                <h2>About D'REAL EXCHANGE</h2>
+                <p>
+                    D'REAL EXCHANGE was founded with a vision to provide a secure, efficient, and reliable platform for peer-to-peer cryptocurrency trading. Our journey began humbly five years ago within the home of our founder's mother, fueled by a passion for the potential of decentralized finance and a commitment to building a trustworthy community.
+                </p>
+                <p>
+                    Since those early days, D'REAL EXCHANGE has been on a path of continuous improvement and refinement. We have listened to our community, adapted to the evolving landscape of the cryptocurrency market, and diligently worked to enhance our platform's security, speed, and user experience. Our dedication remains steadfast: to offer a seamless and dependable environment where users can confidently trade cryptocurrencies with our network of trusted vendors.
+                </p>
+                <p>
+                    We believe in transparency and building lasting relationships with our users. Join us as we continue to shape the future of crypto trading, one secure and efficient transaction at a time.
+                </p>
+            </div>
+        </section>
+
+        <section class="cta" id="download">
+            <div class="container">
+                <h2>Download the D'REAL EXCHANGE App!</h2>
+                <p style="font-size: 1.2em; margin-bottom: 20px; color: #fff;">Access secure, fast, and reliable crypto trading on the go.</p>
+                <div class="app-download-links">
+                    <a href="#" class="download-button">Download on iOS</a>
+                    <a href="#" class="download-button">Get it on Google Play</a>
+                </div>
+                <div class="qr-code-section">
+                    <p>Or scan the QR code:</p>
+                    <div class="qr-code-placeholder">
+                        <!-- You will replace this with the actual QR code image -->
+                        <p>QR Code</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer id="contact">
+            <p>Contact us via email: <a href="mailto:your-email@drealexchange.com">your-email@drealexchange.com</a></p>
+            <p>&copy; 2025 D'REAL EXCHANGE</p>
+        </footer>
+    </div>
+
+    <script>
+        // Smooth scroll for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            // Only apply smooth scroll to internal links (starting with #)
+            if (anchor.getAttribute('href').startsWith('#')) {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            }
+        });
+
+        // Hide the loading screen after a delay
+        window.addEventListener('load', () => {
+            const loadingScreen = document.getElementById('loadingScreen');
+            setTimeout(() => {
+                loadingScreen.classList.add('hidden'); // Add hidden class for fade out
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none'; // Fully remove after fade
+                }, 500); // Match CSS transition duration
+            }, 3000); // 3 seconds delay
+        });
+    </script>
+</body>
+</html>

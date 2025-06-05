@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D'REAL EXCHANGE - Contact Us</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Basic Reset */
+        body, h1, h2, p, div, form, input, textarea, button, label {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+            box-sizing: border-box;
+        }
+        body {
+            line-height: 1.6;
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f4f4; /* Light background */
+            color: #333;
+            padding: 20px;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            flex-grow: 1;
+        }
+
+        /* Header */
+        h1 {
+            text-align: center;
+            color: #1a1a1a; /* Dark black from logo */
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #8A2BE2; /* Purple accent line */
+        }
+
+        .contact-info {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 1.1em;
+        }
+        .contact-info p {
+            margin-bottom: 10px;
+        }
+        .contact-info a {
+            color: #8A2BE2; /* Purple for email link */
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        .contact-info a:hover {
+            color: #6A0DAD;
+            text-decoration: underline;
+        }
+
+        /* Form Styling */
+        form {
+            margin-top: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+            color: #333;
+            transition: border-color 0.3s ease;
+        }
+        .form-group input[type="text"]:focus,
+        .form-group input[type="email"]:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #8A2BE2; /* Purple focus highlight */
+        }
+        .form-group textarea {
+            resize: vertical; /* Allow vertical resizing */
+            min-height: 120px;
+        }
+
+        .submit-button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #FF6347; /* Red submit button */
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .submit-button:hover {
+            background-color: #FF4500; /* Darker red on hover */
+            transform: translateY(-2px);
+        }
+
+        /* Footer (re-used from main website for consistency) */
+        footer {
+            background-color: #1a1a1a; /* Darker black for footer */
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+            font-size: 0.95em;
+            border-radius: 15px 15px 0 0; /* Rounded top corners */
+            margin-top: 40px; /* Space from content */
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+        }
+        footer a {
+            color: #FF6347; /* Red for footer links */
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        footer a:hover {
+            color: #FF4500;
+            text-decoration: underline;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            .container {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Contact D'REAL EXCHANGE</h1>
+
+        <div class="contact-info">
+            <p>Have questions or need support? Reach out to us!</p>
+            <p>You can contact us directly via email:</p>
+            <p><a href="mailto:your-email@drealexchange.com">your-email@drealexchange.com</a></p>
+            <p>We aim to respond to all inquiries within 24-48 hours.</p>
+        </div>
+
+        <form id="contactForm">
+            <h2>Send us a message</h2>
+            <div class="form-group">
+                <label for="name">Your Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Your Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="subject">Subject:</label>
+                <input type="text" id="subject" name="subject" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Your Message:</label>
+                <textarea id="message" name="message" required></textarea>
+            </div>
+            <button type="submit" class="submit-button">Send Message</button>
+        </form>
+    </div>
+
+    <footer>
+        <p>Contact us via email: <a href="mailto:your-email@drealexchange.com">your-email@drealexchange.com</a></p>
+        <p>&copy; 2025 D'REAL EXCHANGE</p>
+    </footer>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent actual form submission
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+
+            if (name && email && subject && message) {
+                alert(`Message Sent!\n\nName: ${name}\nEmail: ${email}\nSubject: ${subject}\nMessage: ${message}\n\nThis data would typically be sent to your backend for processing.`);
+                // In a real app, this data would be sent to your backend (e.g., via an API endpoint)
+                // and then you would clear the form or show a success message.
+                this.reset(); // Clear the form after simulated submission
+            } else {
+                alert('Please fill in all fields to send your message.');
+            }
+        });
+    </script>
+</body>
+</html>
