@@ -295,10 +295,10 @@
 
         <div class="app-navigation">
             <p>
-                <a href="/offer-listings">View All Offers</a>
-                <a href="/create-offer">Create Offer</a>
-                <a href="/chat">Chat</a>
-                <a href="/login">Login/Register</a>
+                <a href="app-offers.html">View All Offers</a>
+                <a href="create-offer.html">Create Offer</a>
+                <a href="chat.html">Chat</a>
+                <a href="auth.html">Login/Register</a>
             </p>
         </div>
     </div>
@@ -307,17 +307,17 @@
         // Function to fetch and render wallet balances
         async function fetchAndRenderWalletBalances() {
             const walletBalancesDiv = document.getElementById('walletBalances');
-            walletBalancesDiv.innerHTML = '<p style="text-align: center;">Loading wallet balances...</p>'; // Loading state
+            walletBalancesDiv.innerHTML = '<p style="text-align: center;">Loading wallet balances...</p>';
 
             try {
-                const response = await fetch('http://localhost:5000/api/wallet/balances');
+                const response = await fetch('https://dreal-exchange-backend.onrender.com/api/wallet/balances');
                 if (!response.ok) {
                     const errorText = await response.text();
                     throw new Error(`HTTP error! status: ${response.status} - ${errorText}`);
                 }
                 const balances = await response.json();
                 
-                walletBalancesDiv.innerHTML = ''; // Clear loading state
+                walletBalancesDiv.innerHTML = '';
                 if (Object.keys(balances).length === 0) {
                     walletBalancesDiv.innerHTML = '<p style="text-align: center;">No wallet balances found. Generate a new wallet!</p>';
                 } else {
@@ -353,7 +353,7 @@
             if (!cryptoSymbol) return;
 
             try {
-                const response = await fetch('http://localhost:5000/api/wallet/generate-new', {
+                const response = await fetch('https://dreal-exchange-backend.onrender.com/api/wallet/generate-new', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ crypto_symbol: cryptoSymbol.toUpperCase() })
@@ -362,7 +362,7 @@
                 const result = await response.json();
                 if (response.ok) {
                     alert(`Wallet Generation Simulated: ${result.message}\nAddress: ${result.address}`);
-                    fetchAndRenderWalletBalances(); // Refresh balances after generation
+                    fetchAndRenderWalletBalances();
                 } else {
                     alert(`Failed to generate wallet: ${result.error}`);
                 }
@@ -383,7 +383,7 @@
                 }
 
                 try {
-                    const response = await fetch('http://localhost:5000/api/funds/add', {
+                    const response = await fetch('https://dreal-exchange-backend.onrender.com/api/funds/add', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ crypto_symbol: crypto, amount: parseFloat(amount) })
@@ -392,7 +392,7 @@
                     const result = await response.json();
                     if (response.ok) {
                         alert(`Add Funds Simulated: ${result.message}`);
-                        fetchAndRenderWalletBalances(); // Refresh balances after adding funds
+                        fetchAndRenderWalletBalances();
                     } else {
                         alert(`Failed to add funds: ${result.error}`);
                     }
@@ -419,7 +419,7 @@
                 }
 
                 try {
-                    const response = await fetch('http://localhost:5000/api/funds/withdraw', {
+                    const response = await fetch('https://dreal-exchange-backend.onrender.com/api/funds/withdraw', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ crypto_symbol: crypto, amount: parseFloat(amount), destination_address: destinationAddress })
@@ -428,7 +428,7 @@
                     const result = await response.json();
                     if (response.ok) {
                         alert(`Withdrawal Simulated: ${result.message}`);
-                        fetchAndRenderWalletBalances(); // Refresh balances after withdrawal
+                        fetchAndRenderWalletBalances();
                     } else {
                         alert(`Failed to withdraw funds: ${result.error}`);
                     }
@@ -440,10 +440,6 @@
         });
 
 
-        // Initial fetch and render of wallet balances when page loads
-        document.addEventListener('DOMContentLoaded', fetchAndRenderWalletBalances);
-
-        // Notification preferences form submission (existing logic)
         document.getElementById('notificationPrefsForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const prefs = {

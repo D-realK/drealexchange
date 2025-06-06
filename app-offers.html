@@ -174,10 +174,10 @@
 
         <div class="app-navigation">
             <p>
-                <a href="/create-offer">Create Offer</a>
-                <a href="/profile">Your Profile</a>
-                <a href="/chat">Chat</a>
-                <a href="/login">Login/Register</a>
+                <a href="create-offer.html">Create Offer</a>
+                <a href="profile.html">Your Profile</a>
+                <a href="chat.html">Chat</a>
+                <a href="auth.html">Login/Register</a>
             </p>
         </div>
     </div>
@@ -185,10 +185,8 @@
     <script>
         // Placeholder for real-time market data (simulated API call)
         async function fetchMarketPrices() {
-            // This remains a client-side mock for now, as real-time market data
-            // is usually fetched directly by the client from public APIs.
             const mockPrices = {
-                bitcoin: (30000 + Math.random() * 500 - 250).toFixed(2), // Simulate slight fluctuation
+                bitcoin: (30000 + Math.random() * 500 - 250).toFixed(2),
                 ethereum: (2000 + Math.random() * 50 - 25).toFixed(2),
                 tether: (1.00 + Math.random() * 0.001 - 0.0005).toFixed(4),
                 ripple: (0.50 + Math.random() * 0.01 - 0.005).toFixed(4),
@@ -200,10 +198,9 @@
         // This function now fetches data from your Flask backend
         async function fetchOffers() {
             try {
-                const response = await fetch('http://localhost:5000/api/offers'); // Point to your Flask server
+                const response = await fetch('https://dreal-exchange-backend.onrender.com/api/offers');
                 if (!response.ok) {
-                    // If the response is not OK (e.g., 404, 500), throw an error with more details
-                    const errorText = await response.text(); // Try to get more info from the response
+                    const errorText = await response.text();
                     throw new Error(`HTTP error! status: ${response.status} - ${errorText}`);
                 }
                 const offers = await response.json();
@@ -220,7 +217,6 @@
                         Falling back to mock data...
                     </p>
                 `;
-                // Fallback to mock data if backend is unreachable
                 return [
                     { id: 'mock1', crypto: 'BTC/USD', type: 'Sell', price: 29500, quantity: 0.4, vendor: 'MockVendorX' },
                     { id: 'mock2', crypto: 'ETH/USD', type: 'Buy', price: 2100, quantity: 1.8, vendor: 'MockVendorY' }
@@ -231,17 +227,17 @@
         // This function takes the offer data and creates the HTML for it
         async function renderOffers() {
             const offerListDiv = document.getElementById('offerList');
-            offerListDiv.innerHTML = '<p style="text-align: center;">Loading offers...</p>'; // Show loading state
+            offerListDiv.innerHTML = '<p style="text-align: center;">Loading offers...</p>';
 
-            const offers = await fetchOffers(); // Get the base offers
-            const marketPrices = await fetchMarketPrices(); // Get current market prices
+            const offers = await fetchOffers();
+            const marketPrices = await fetchMarketPrices();
 
             if (!offers || offers.length === 0) {
                 offerListDiv.innerHTML = '<p style="text-align: center;">No offers available at the moment.</p>';
                 return;
             }
 
-            offerListDiv.innerHTML = ''; // Clear loading state
+            offerListDiv.innerHTML = '';
             offers.forEach(offer => {
                 const offerDiv = document.createElement('div');
                 offerDiv.className = 'offer';
@@ -250,7 +246,6 @@
                 const buttonClass = offer.type === 'sell' ? 'buy-button' : 'sell-button';
                 const buttonText = offer.type === 'sell' ? 'Buy' : 'Sell';
 
-                // Determine the market price for the current crypto
                 let currentMarketPrice = 'N/A';
                 const cryptoSymbol = offer.crypto.split('/')[0].toLowerCase();
                 if (marketPrices[cryptoSymbol]) {
@@ -273,14 +268,11 @@
             });
         }
 
-        // Main logic that runs when the page loads and for periodic refresh
         document.addEventListener('DOMContentLoaded', () => {
-            renderOffers(); // Initial load
-            // Refresh offers every 30 seconds to simulate real-time data
+            renderOffers();
             setInterval(renderOffers, 30000);
         });
 
-        // Event listener for dynamically created Buy/Sell buttons
         document.getElementById('offerList').addEventListener('click', function(e) {
             if (e.target.classList.contains('buy-button')) {
                 const offerDetails = e.target.closest('.offer').querySelector('.offer-details');
